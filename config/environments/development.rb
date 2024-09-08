@@ -29,7 +29,7 @@ Rails.application.configure do
       "Cache-Control" => "public, max-age=#{2.days.to_i}"
     }
   else
-    config.action_controller.perform_caching = false
+    config.action_controller.perform_caching = true
 
     config.cache_store = :null_store
   end
@@ -63,6 +63,7 @@ Rails.application.configure do
   # Suppress logger output for asset requests.
   config.assets.quiet = true
 
+  config.active_storage.service_urls_expire_in = 2.hours
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
