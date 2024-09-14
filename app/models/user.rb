@@ -4,4 +4,6 @@ class User < ApplicationRecord
   # :confirmable sends an email to the user so we can confirm they have access to that email
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
+
+  has_many :lesson_users
 end
