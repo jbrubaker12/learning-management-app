@@ -1,14 +1,17 @@
 class Course < ApplicationRecord
-  # Defines an image in our course that we can upload and interact with.
+  has_rich_text :description
   has_one_attached :image do |attachable|
-    attachable.variant :thumb, resize_to_limit: [100, 100]
+    attachable.variant :thumb, resize_to_limit: [100,100]
   end
   has_many :lessons
+  has_many :course_users
   has_and_belongs_to_many :categories
-  
-  # This is because of an error where the first lesson was assumed to be rendered but wasn't because some courses do not have any lessons yet.
+
+  has_rich_text :description
+  has_rich_text :premium_description
+
   def first_lesson
-  	self.lessons.order(:position).first
+    self.lessons.order(:position).first
   end
 
   def next_lesson(current_user)
@@ -17,7 +20,7 @@ class Course < ApplicationRecord
     end
 
     completed_lessons = current_user.lesson_users.includes(:lesson).where(completed: true).where(lessons: { course_id: self.id})
-    started_lessons = current_user.lesson_users.includes(:lesson).where(completed: false).where(lesson: {course_id: self.id}).order(:position)
+    started_lessons = current_user.lesson_users.includes(:lesson).where(completed: false).where(lesson: { course_id: self.id}).order(:position)
 
     if started_lessons.any?
       return started_lessons.first.lesson
