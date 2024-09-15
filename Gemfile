@@ -73,3 +73,4 @@ end
 gem "font-awesome-sass", "~> 6.5.1" #Install font-awesome-sass, after you install this you need to make sure to add it to your application.css.scss
 gem "streamio-ffmpeg"
 gem "devise", "~> 4.9"
+gem "stripe", "~> 10.3"
